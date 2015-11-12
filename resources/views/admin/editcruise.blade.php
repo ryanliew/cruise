@@ -7,9 +7,11 @@
 @section('content')
 
 	<div class="row">
-		<form action="/admin/cruise/new" method="POST" role="form">
+		<form action="/admin/cruise/{{ $cruise->id }}" method="POST" role="form" enctype="multipart/form-data">
+			@include('common.messages')
 			@include('common.errors')
-			<div class="col-md-6">
+			{{ method_field('put') }}
+			<div class="col-md-4">
 				<div class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">General Info</h3>
@@ -35,10 +37,18 @@
 								<input type="number" class="form-control" id="price" name="price" step="any" value="{{ $cruise->price }}"/>
 							</div>
 						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<input type="file" id="image" name="image" />
+								@if(!empty($cruise->image))
+									<img src="{{ URL::to('/uploads')}}/{{ $cruise->image }}" width="300px" height="190px"/>
+								@endif
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">Cruise route</h3>
@@ -65,6 +75,29 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-4">
+				<div class="box box-success">
+					<div class="box-header">
+						<h3 class="box-title">Cruise cabins</h3>
+					</div>
+					<div class="box-body">
+						@foreach($cabins as $cabin)
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon">{{ $cabin->name }}</div>
+									<input type="number" class="form-control" id="{{ $cabin->id }}-number" name="cabins[{{ $cabin->id }}]" @if(isset($withcabin[$cabin->id]))value="{{ $withcabin[$cabin->id]}}" @endif
+									 />
+								</div>
+							</div>
+						@endforeach
+					</div>
+					<div class="box-footer">
+						<h3 class="box-title">Cruise Promotion</h3>
+						Promotion:<br/>
+						Discount:
+					</div>
+				</div>
+			</div>
 			<div class="col-md-12">
 				<div class="box box-success">
 					<div class="box-header">
@@ -75,12 +108,6 @@
                 	</div>
                 	<div class="box-footer">
                 		<button type="submit" class="btn btn-primary">Update</button>
-                		<form action="/cruise/{{ $cruise->id }}" method="POST">
-                			{{ csrf_field() }}
-                			{{ method_field('delete') }}
-
-                			<button class="btn btn-danger">Delete Cruise</button>
-                		</form>
                 	</div>
 				</div>
 			</div>

@@ -9,11 +9,11 @@ class Reservation extends Model
     //
     public function amenities()
     {
-    	return $this->belongsToMany('App/Amenity');
+    	return $this->belongsToMany('App/Amenity', 'reservations_amenities');
     }
 
     public function cabins()
     {
-    	return $this->belongsToMany('App/Cabin');
+    	return $this->belongsToMany('App/Cabin', 'reservations_cabins');
     }
 }

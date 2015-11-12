@@ -56,4 +56,11 @@ class User extends Model implements AuthenticatableContract,
                 return 'customer';
         }
     }
+
+    public function isAdmn()
+    {
+        if ($this->role == 1)
+            return true;
+        return false;
+    }
 }

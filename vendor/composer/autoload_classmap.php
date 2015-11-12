@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddImageUrlColumn' => $baseDir . '/database/migrations/2015_11_06_135537_add_image_url_column.php',
+    'AddPromotionId' => $baseDir . '/database/migrations/2015_11_08_160250_add_promotion_id.php',
+    'AddStatusColumn' => $baseDir . '/database/migrations/2015_11_10_065713_add_status_column.php',
     'CreateAmenitiesPromotionsTable' => $baseDir . '/database/migrations/2015_11_03_163743_create_amenities_promotions_table.php',
     'CreateAmenityTable' => $baseDir . '/database/migrations/2015_11_03_134004_create_amenity_table.php',
     'CreateCabinTable' => $baseDir . '/database/migrations/2015_11_03_133943_create_cabin_table.php',
@@ -19,6 +22,8 @@ return array(
     'CreateReservationsCabinsTable' => $baseDir . '/database/migrations/2015_11_03_164018_create_reservations_cabins_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'DropPromotionIntermediate' => $baseDir . '/database/migrations/2015_11_08_154151_drop_promotion_intermediate.php',
+    'EditDateColumns' => $baseDir . '/database/migrations/2015_11_08_152403_edit_date_columns.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',

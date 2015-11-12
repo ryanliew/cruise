@@ -21,6 +21,6 @@ class CruisePolicy
 
     public function destroy(User $user, Cruise $cruise)
     {
-        return $user->role > 0;
+        return true;
     }
 }

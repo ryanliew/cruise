@@ -6,10 +6,12 @@
 
 @section('content')
 
-	<div class="row">
-		<form action="/admin/cruise/new" method="POST" role="form">
+	<form action="/admin/cruise/new" id="cruise" method="POST" role="form" enctype="multipart/form-data">
+		<div class="row">
 			@include('common.errors')
-			<div class="col-md-6">
+			@include('common.messages')
+			<p class="alert alert-warning">You can assign promotion after creating the cruise</p>
+			<div class="col-md-4">
 				<div class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">General Info</h3>
@@ -35,10 +37,16 @@
 								<input type="number" class="form-control" id="price" name="price" step="any"/>
 							</div>
 						</div>
+						<div class="form-group">
+							<label for="image">Cruise image:</label>
+							<div class="input-group">
+								<input type="file" id="image" name="image" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">Cruise route</h3>
@@ -65,6 +73,24 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-4">
+				<div class="box box-success">
+					<div class="box-header">
+						<h3 class="box-title">Cruise cabins</h3>
+					</div>
+					<div class="box-body">
+						@foreach($cabins as $cabin)
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon">{{ $cabin->name }}</div>
+									<input type="number" class="form-control" id="{{ $cabin->id }}-number" name="cabins[{{ $cabin->id }}]" />
+								</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+			</div>
 			<div class="col-md-12">
 				<div class="box box-success">
 					<div class="box-header">
@@ -78,8 +104,8 @@
                 	</div>
 				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 @endsection
 
 @section('pagescript')

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Cruise | Dashboard</title>
+        <title>Cruise | @yield('titletext')</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -26,10 +26,11 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        @yield('pagecss')
     </head>
     <body class="skin-blue">
     	<header class="header">
-    		<a href="#" class="logo">Cruise</a>
+    		<a href="#" class="logo">RCruise</a>
     		<nav class="navbar navbar-static-top" role="navigation">
     			<a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
@@ -61,7 +62,7 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="{{URL::to('/auth/logout')}}" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -93,50 +94,56 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-ship"></i> <span>Cruises</span>
+                                <i class="fa fa-ship text-success"></i>
+                                <span>Cruises</span>
+                                <i class="fa fa-angle-left pull-right"></i>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ URL::to('/admin/cruises') }}"><i class="fa fa-toggle-right"></i> View cruises</a></li>
+                                <li><a href="{{ URL::to('admin/cruise/new') }}"><i class="fa fa-toggle-right"></i> Add new cruise</a></li>
+                            </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-hotel"></i>
+                                <i class="fa fa-hotel text-primary"></i>
                                 <span>Cabins</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> View cabins</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Add new cabin</a></li>
+                                <li><a href="{{ URL::to('/admin/cabins') }}"><i class="fa fa-toggle-right"></i> View cabins</a></li>
+                                <li><a href="{{ URL::to('/admin/cabin/new') }}"><i class="fa fa-toggle-right"></i> Add new cabin</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-glass"></i>
+                                <i class="fa fa-glass text-warning"></i>
                                 <span>Amenities</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> View amenities</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Add new amenity</a></li>
+                                <li><a href="{{ URL::to('/admin/amenities') }}"><i class="fa fa-toggle-right"></i> View amenities</a></li>
+                                <li><a href="{{ URL::to('/admin/amenity/new') }}"><i class="fa fa-toggle-right"></i> Add new amenity</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-heart"></i> <span>Promotions</span>
+                                <i class="fa fa-heart text-danger"></i> <span>Promotions</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> View promotions</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Add new promotion</a></li>
+                                <li><a href="#"><i class="fa fa-toggle-right"></i> View promotions</a></li>
+                                <li><a href="{{ URL::to('/admin/promotion/new') }}"><i class="fa fa-toggle-right"></i> Add new promotion</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-edit"></i> <span>Reservations</span>
+                                <i class="fa fa-edit text-info"></i> <span>Reservations</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> View reservations</a></li>
+                                <li><a href="#"><i class="fa fa-toggle-right"></i> View reservations</a></li>
                             </ul>
                         </li>
                         <li>
@@ -175,22 +182,15 @@
         <script src="{{URL::to('/')}}/js/admin/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-        <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="{{URL::to('/')}}/js/admin/plugins/morris/morris.min.js" type="text/javascript"></script>
         <!-- Sparkline -->
         <script src="{{URL::to('/')}}/js/admin/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-        <!-- jvectormap -->
-        <script src="{{URL::to('/')}}/js/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-        <script src="{{URL::to('/')}}/js/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
         <!-- fullCalendar -->
         <script src="{{URL::to('/')}}/js/admin/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="{{URL::to('/')}}/js/admin/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
         <!-- daterangepicker -->
         <script src="{{URL::to('/')}}/js/admin/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
         <!-- Bootstrap WYSIHTML5 -->
-        <script src="{{URL::to('/')}}/js/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+        <script src="{{URL::to('/')}}/js/admin/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js" type="text/javascript"></script>
+        <script src="{{URL::to('/')}}/js/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.js" type="text/javascript"></script>    
         <!-- iCheck -->
         <script src="{{URL::to('/')}}/js/admin/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 
