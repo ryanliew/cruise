@@ -13,7 +13,7 @@
             <!-- Logo -->
             <div class="logo-banner text-center">
                 <a href="" title="">
-                    <img src="images/logo-banner.png" alt="">
+                    <img src="{{ URL::to('/images') }}/logo-banner.png" alt="">
                 </a>
             </div>
             <!-- Logo -->
@@ -40,8 +40,7 @@
                                 </div>
                                 <div class="col-sm-5 text-right">
                                     <p class="price-book">
-                                        From<span>RM{{ $cruise->pricepernight() }}</span>/night
-                                        <a href="" title="" class="awe-btn awe-btn-1 awe-btn-lager">Book Now</a>
+                                        From<span>RM<span class="pricepernight">{{ $cruise->pricepernight() }}</span></span>/night
                                     </p>
                                 </div>
                             </div>
@@ -77,127 +76,136 @@
 
                     </section>
                     <!-- End Cruise Details -->
-
-                    <!-- Cabin Type-->
-                    <section class="cabin-type detail-cn" id="cabin-type">
-                        <div class="row">
-                            <div class="col-lg-3 detail-sidebar">
-                                <div class="scroll-heading">
-                                    <h2>Cabin type</h2>
-                                    <hr class="hr">
-                                    <a href="#cruise-overview" title="">Cruise overview</a>
-                                    <a href="#amenities">Amenities</a>
+                    <form method="POST" action="{{ URL::to('/') }}/reservation">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="cruise" value="{{ $cruise->id }}">
+                        <!-- Cabin Type-->
+                        <section class="cabin-type detail-cn" id="cabin-type">
+                            <div class="row">
+                                <div class="col-lg-3 detail-sidebar">
+                                    <div class="scroll-heading">
+                                        <h2>Cabin type</h2>
+                                        <hr class="hr">
+                                        <a href="#cruise-overview" title="">Cruise overview</a>
+                                        <a href="#amenities">Amenities</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 cabin-type-cn">
-                                <h2 class="title-detail">Select a Cabin Type</h2>
-                                <div class="responsive-table">
-                                    <table class="table cabin-type-tabel table-radio">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Room Types</th>
-                                                <th>Rate</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	@foreach($cruise->cabins as $cabin)
-                                            <tr>
-                                                <td class="td-radio">
-                                                    <div class="radio-checkbox">
-                                                        <input type="radio" name="{{ $cabin->id }}" id="radio-01" class="radio">
-                                                        <label for="radio-01"></label>
-                                                    </div>
-                                                </td>
-                                                <td class="td-room">
-                                                    <figure>
-                                                        <img src="{{ URL::to('/uploads') }}/{{ $cabin->image }}" alt="" width="170px" height="180px">
-                                                    </figure>
-                                                    <h2>{{ $cabin->name }} </h2>
-                                                    <p>
-                                                        {!! $cabin->description !!}
-                                                    </p>
-                                                </td>
-                                                <td class="t-price">
-                                                    <div class="price-box">
-                                                        <span class="price">From <ins>{{ number_format($cabin->price(), 2, '.', ',') }}</ins></span>
-                                                        <span class="price night">{{ $cabin->pricepernight($cruise->duration()) }}/<small>night</small></span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End Cabin Type -->
-
-                    <!-- Amenity Select-->
-                    <section class="cabin-number detail-cn" id="amenities">
-                        <div class="row">
-                            <div class="col-lg-3 detail-sidebar">
-                                <div class="scroll-heading">
-                                    <h2>Amenities</h2>
-                                    <hr class="hr">
-                                    <a href="#cabin-type" title="">Cabin type</a>
-                                    <a href="#cruise-overview" title="">Cruise overview</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 cabin-type-cn">
-                            	<h2 class="title-detail">Select any amenities</h2>
-                            	<div class="responsive-table">
-                                    <table class="table cabin-type-tabel table-checkbox">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Amenity</th>
-                                                <th>Rate</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	@foreach($amenities as $amenity)
-                                        		<tr>
-                                        			<td class="td-checkbox">
-	                                                    <div class="radio-checkbox">
-	                                                        <input type="checkbox" name="amenity[{{ $amenity->id }}]" id="amenity-{{ $amenity->id }}" class="checkbox">
-	                                                        <label for="amenity-{{ $amenity->id }}"></label>
-	                                                    </div>
-	                                                </td>
-	                                                <td class="td-room">
+                                <div class="col-lg-9 cabin-type-cn">
+                                    <h2 class="title-detail">Select a Cabin Type</h2>
+                                    <div class="responsive-table">
+                                        <table class="table cabin-type-tabel table-radio">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Room Types</th>
+                                                    <th>Rate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	@foreach($cruise->cabins as $cabin)
+                                                <tr>
+                                                    <td class="td-radio">
+                                                        <div class="radio-checkbox">
+                                                            <input type="radio" name="cabin" id="radio-01" class="radio" value="{{ $cabin->id }}">
+                                                            <label for="radio-01"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="td-room">
                                                         <figure>
-                                                            <img src="{{ URL::to('/uploads') }}/{{ $amenity->image }}" alt="" width="200px" height="160px">
+                                                            <img src="{{ URL::to('/uploads') }}/{{ $cabin->image }}" alt="" width="170px" height="180px">
                                                         </figure>
-                                                        <h2>{{ $amenity->name }} </h2>
+                                                        <h2>{{ $cabin->name }} </h2>
                                                         <p>
-                                                            {!! $amenity->description !!}
+                                                            {!! $cabin->description !!}
                                                         </p>
-	                                                </td>
-	                                                <td class="t-price">
-	                                                    <div class="price-box">
-	                                                        <span class="price">Only <ins>RM{{ number_format($amenity->price(), 2, '.', ',') }}</ins></span></span>
-	                                                    </div>
-	                                                </td>
-                                        		</tr>
-                                        	@endforeach
-                                        </tbody>
-                                    </table>
+                                                        <p>
+                                                            <span class="star-room">
+                                                            @for($i=0;$i<$cabin->size;$i++)
+                                                                <i class="glyphicon glyphicon-user"></i>
+                                                            @endfor
+                                                        </p>
+                                                    </td>
+                                                    <td class="t-price">
+                                                        <div class="price-box">
+                                                            <span class="price">From <ins>{{ number_format($cabin->price(), 2, '.', ',') }}</ins></span>
+                                                            <span class="price night">{{ $cabin->pricepernight($cruise->duration()) }}/<small>night</small></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                        <!-- End Cabin Type -->
 
-                    <section class="detail-footer cruise-detail-footer detail-cn">
-                        <div class="row">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-9 detail-footer-cn text-right">
-                                <p class="price-book">
-                                    From-<span>RM<span id="price-per-night">{{ $cruise->pricepernight() }}</span></span>/night
-                                    <a href="" title="" class="awe-btn awe-btn-1 awe-btn-lager">Book Now</a>
-                                </p>
+                        <!-- Amenity Select-->
+                        <section class="cabin-number detail-cn" id="amenities">
+                            <div class="row">
+                                <div class="col-lg-3 detail-sidebar">
+                                    <div class="scroll-heading">
+                                        <h2>Amenities</h2>
+                                        <hr class="hr">
+                                        <a href="#cabin-type" title="">Cabin type</a>
+                                        <a href="#cruise-overview" title="">Cruise overview</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 cabin-type-cn">
+                                	<h2 class="title-detail">Select any amenities</h2>
+                                	<div class="responsive-table">
+                                        <table class="table cabin-type-tabel table-checkbox">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Amenity</th>
+                                                    <th>Rate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	@foreach($amenities as $amenity)
+                                            		<tr>
+                                            			<td class="td-checkbox">
+    	                                                    <div class="radio-checkbox">
+    	                                                        <input type="checkbox" name="amenity[]" id="amenity-{{ $amenity->id }}" class="checkbox" value="{{ $amenity->id }}">
+    	                                                        <label for="amenity-{{ $amenity->id }}"></label>
+    	                                                    </div>
+    	                                                </td>
+    	                                                <td class="td-room">
+                                                            <figure>
+                                                                <img src="{{ URL::to('/uploads') }}/{{ $amenity->image }}" alt="" width="200px" height="160px">
+                                                            </figure>
+                                                            <h2>{{ $amenity->name }} </h2>
+                                                            <p>
+                                                                {!! $amenity->description !!}
+                                                            </p>
+    	                                                </td>
+    	                                                <td class="t-price">
+    	                                                    <div class="price-box">
+    	                                                        <span class="price">Only <ins>RM{{ number_format($amenity->price(), 2, '.', ',') }}</ins></span></span>
+    	                                                    </div>
+    	                                                </td>
+                                            		</tr>
+                                            	@endforeach
+                                            </tbody>
+                                        </table>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+
+                        <section class="detail-footer cruise-detail-footer detail-cn">
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-9 detail-footer-cn text-right">
+                                    <p class="price-book">
+                                        From-<span>RM<span class="pricepernight">{{ $cruise->pricepernight() }}</span></span>/night
+                                        <button type="submit" class="awe-btn awe-btn-1 awe-btn-lager">Book Now</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
                 </div>
             </div>
         </div>

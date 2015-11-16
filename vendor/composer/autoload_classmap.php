@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddCashierColumns' => $baseDir . '/database/migrations/2015_11_14_025203_add_cashier_columns.php',
     'AddImageUrlColumn' => $baseDir . '/database/migrations/2015_11_06_135537_add_image_url_column.php',
     'AddPromotionId' => $baseDir . '/database/migrations/2015_11_08_160250_add_promotion_id.php',
     'AddStatusColumn' => $baseDir . '/database/migrations/2015_11_10_065713_add_status_column.php',
@@ -16,6 +17,7 @@ return array(
     'CreateCruiseTable' => $baseDir . '/database/migrations/2015_11_03_133931_create_cruise_table.php',
     'CreateCruisesCabinsTable' => $baseDir . '/database/migrations/2015_11_03_163949_create_cruises_cabins_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePaymentTable' => $baseDir . '/database/migrations/2015_11_14_035653_create_payment_table.php',
     'CreatePromotionTable' => $baseDir . '/database/migrations/2015_11_03_133953_create_promotion_table.php',
     'CreateReservationTable' => $baseDir . '/database/migrations/2015_11_03_134019_create_reservation_table.php',
     'CreateReservationsAmenitiesTable' => $baseDir . '/database/migrations/2015_11_03_164035_create_reservations_amenities_table.php',
@@ -99,6 +101,7 @@ return array(
     'ModifyCruiseTable' => $baseDir . '/database/migrations/2015_11_04_184431_modify_cruise_table.php',
     'ModifyReservationsAmenitiesTable' => $baseDir . '/database/migrations/2015_11_03_172647_modify_reservations_amenities_table.php',
     'ModifyReservationsCabinsTable' => $baseDir . '/database/migrations/2015_11_03_172705_modify_reservations_cabins_table.php',
+    'ModifyReservationsTable' => $baseDir . '/database/migrations/2015_11_14_072057_modify_reservations_table.php',
     'ModifyUsersTable' => $baseDir . '/database/migrations/2015_11_04_164058_modify_users_table.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',

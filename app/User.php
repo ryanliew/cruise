@@ -57,7 +57,7 @@ class User extends Model implements AuthenticatableContract,
         }
     }
 
-    public function isAdmn()
+    public function isAdmin()
     {
         if ($this->role == 1)
             return true;

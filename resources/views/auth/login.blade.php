@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="form-box" id="login-box">
-    <div class="header">Staff Sign In</div>
+    <div class="header">Sign In</div>
     <form action="/auth/login" method="post">
         {!! csrf_field() !!}
         <div class="body bg-gray">

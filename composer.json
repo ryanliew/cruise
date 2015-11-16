@@ -6,7 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*"
+        "laravel/framework": "5.1.*",
+        "payum/payum-laravel-package": "^1.0",
+        "payum/paypal-express-checkout-nvp": "^1.0",
+        "laravel/cashier": "~5.0",
+        "paypal/rest-api-sdk-php": "*"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

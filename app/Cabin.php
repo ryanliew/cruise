@@ -14,9 +14,9 @@ class Cabin extends Model
     	return $this->belongsToMany('App/Cruise', 'cruises_cabins')->withTimestamp()->withPivot('cabin_booked', 'cabin_number');
     }
 
-    public function reservations()
+    public function reservation()
     {
-    	return $this->belongsToMany('App/Reservation', 'reservations_cabins')->withTimestamp()->withPivot('cabin_amount', 'promotion_id');
+    	return $this->hasMany('App/Reservation');
     }
 
     public function promotions()

@@ -17,6 +17,16 @@ class Cruise extends Model
     	return $this->belongsToMany('App\Cabin', 'cruises_cabins')->withPivot('cabin_booked', 'cabin_number')->withTimestamps();
     }
 
+    public function location()
+    {
+        return $this->depart_location . ' - ' . $this->arrive_location;
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany('App\Reservation');
+    }
+
     public function date()
     {
         $depart = DateTime::createFromFormat('Y-m-d', $this->depart_date)->format('m/d/Y');

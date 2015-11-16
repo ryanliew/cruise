@@ -36,7 +36,7 @@
 	            <div class="container">
 	                <!-- Logo -->
 	                <div class="logo float-left">
-	                    <a href="index.html" title=""><img src="images/logo-header.png" alt=""></a>
+	                    <a href="{{ URL::to('/') }}" title=""><img src="{{ URL::to('/images') }}/logo-header.png" alt=""></a>
 	                </div>
 	                <!-- End Logo -->
 	                <!-- Bars -->
@@ -128,6 +128,7 @@
 
 	    <!-- Library JS -->
 	    <script type="text/javascript" src="{{URL::to('/')}}/js/user/library/jquery-1.11.0.min.js"></script>
+	    <script type="text/javascript" src="{{URL::to('/')}}/js/user/library/jquery-ui.min.js"></script>
 	    <script type="text/javascript" src="{{URL::to('/')}}/js/user/library/jquery-ui.min.js"></script>
 	    <!-- Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>

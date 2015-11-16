@@ -10,14 +10,26 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\Cruise;
-use App\Cabins;
-use App\Amenities;
+
 Route::get('/', 'Front\FrontController@homepage');
 Route::get('home', 'Front\FrontController@homepage');
 Route::get('cruises', 'Front\FrontController@index');
 Route::post('cruises', 'Front\FrontController@search');
 Route::get('cruise/{cruise}', 'Front\FrontController@cruise');
+Route::post('reservation', 'ReservationController@make');
+Route::get('reservation/{reservation}', 'ReservationController@show');
+Route::get('reservation/success/{reservation}', array(
+	'as' => 'payment.success',
+	'uses' => 'ReservationController@success',
+	));
+Route::post('makepayment', array(
+	'as' => 'payment',
+	'uses' => 'PaypalController@postPayment',
+	));
+Route::get('payment/status', array(
+    'as' => 'payment.status',
+    'uses' => 'PaypalController@getPaymentStatus',
+));
 
 Route::get('/dummy', function(){
 	$faker = Faker\Factory::create();
@@ -41,8 +53,10 @@ Route::get('/dummy', function(){
 });
 
 // User Routes
-Route::get('user/{id}', 'User\UserController@editProfile');
-Route::post('user/{id}', 'User\UserController@postProfile');
+Route::get('user/{user}', 'UserController@show');
+Route::post('user/{user}', 'UserController@create');
+Route::put('user/{user}', 'UserController@update');
+Route::get('user/{user}/reservations', 'UserController@showReservations');
 
 //Promotion Routes
 
