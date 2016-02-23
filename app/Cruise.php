@@ -27,6 +27,11 @@ class Cruise extends Model
         return $this->hasMany('App\Reservation');
     }
 
+    public function passengers()
+    {
+        return $this->hasMany('App\Passenger');
+    }
+
     public function date()
     {
         $depart = DateTime::createFromFormat('Y-m-d', $this->depart_date)->format('m/d/Y');
@@ -78,6 +83,10 @@ class Cruise extends Model
                 break;
             case 2:
                 $status = ['color' => 'red','name' => 'canceled'];
+                break;
+            case 3:
+                $status = ['color' => 'blue', 'name' => 'departed'];
+                break;
         }
         return $status;
     }

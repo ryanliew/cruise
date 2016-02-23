@@ -51,49 +51,25 @@
 	                            <div class="tb-cell">
 	                                <ul class="menu-list text-uppercase">
 	                                    <li>
-	                                        <a href="{{ URL::to('/') }}" title="">Home</a>
+	                                        <a href="{{ URL::to('/') }}/" title="">Home</a>
 	                                    </li>
 	                                    <li>
-	                                    	<a href="{{ URL::to('/') }}/about" title="">About</a>
-	                                        <ul class="sub-menu">	                                            
-	                                            <li>
-	                                                <a href="#" title="">User</a>
-	                                                <ul class="sub-menu">
-	                                                    <li>
-	                                                        <a href="user-booking.html" title="">User Booking</a>
-	                                                    </li>
-	                                                    <li>
-	                                                        <a href="user-profile.html" title="">User Profile</a>
-	                                                    </li>
-	                                                    <li>
-	                                                        <a href="user-setting.html" title="">User Setting</a>
-	                                                    </li>
-	                                                    <li>
-	                                                        <a href="user-review.html" title="">User Review</a>
-	                                                    </li>
-	                                                    <li>
-	                                                        <a href="user-signup.html" title="">User Signup</a>
-	                                                    </li>
-	                                                </ul>
-	                                            </li>
-	                                            <li><a href="payment.html" title="">Payment</a></li>
-	                                        </ul>
+	                                    	<a href="{{ URL::to('/about') }}/" title="">About</a>
 	                                    </li>
-	                                    <li class="current-menu-parent">
-	                                        <a href="#" title="">Cruises</a>
-	                                        <ul class="sub-menu">
-	                                            <li class="current-menu-item">
-	                                                <a href="home-cruise.html" title="">Cruises</a>
-	                                            </li>
-	                                            <li>
-	                                                <a href="cruise-list.html">Cruise List</a>
-	                                            </li>
-	                                            <li>
-	                                                <a href="cruise-detail.html">Cruise Detail</a>
-	                                            </li>
-	                                        </ul>
+	                                    <li class="current-menu-item">
+	                                        <a href="{{ URL::to('/cruises') }}/" title="">Cruises</a>
 	                                    </li>
-	                                    <li><a href="contact.html" title="">Contact</a></li>
+	                                    <li><a href="{{ URL::to('/contact') }}/" title="">Contact</a></li>
+	                                    @if(!empty(Auth::user()))
+	                                    <li><a href="{{ URL::to('/user') }}/{{ Auth::user()->id }}/">My Account
+	                                    	<ul class="sub-menu">
+	                                    		<li><a href="{{ URL::to('/user') }}/{{ Auth::user()->id }}/reservations/">My Reservations</a></li>
+	                                    		<li><a href="{{ URL::to('/auth/logout') }}/">Sign Out</a>
+	                                    	</ul>
+	                                    </li>
+	                                    @else
+	                                    <li><a href="{{ URL::to('/auth/login') }}/">Sign In</a></li>
+	                                    @endif
 	                                </ul>
 	                            </div>
 	                        </div>
@@ -143,5 +119,13 @@
 	    <script type="text/javascript" src="{{URL::to('/')}}/js/user/script.js"></script>
 	    <!-- End Main Js -->
 	    @yield('pagejs')
+
+	    <script>
+	    	$(function(){
+
+		    	var url = window.location.href;
+	    		$('a[href="'+url+'"]').parent().addClass('current-menu-parent');
+	    	});
+	    </script>
 	</body>
 </html>

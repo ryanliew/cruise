@@ -4,7 +4,7 @@ namespace App;
 use App\Amenity as Amenity;
 use App\Cabin;
 use App\Cruise;
-use App\User;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
@@ -36,6 +36,11 @@ class Reservation extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function passengers()
+    {
+        return $this->hasMany('App\Passenger');
     }
     public function total()
     {

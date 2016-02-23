@@ -77,4 +77,9 @@ class Promotion extends Model
                     ->count();
         }
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 0);
+    }
 }

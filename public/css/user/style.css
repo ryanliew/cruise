@@ -10182,6 +10182,12 @@ footer .copyright {
   .payment-form .cvc-code {
     margin-top: 20px;
   }
+  .submit {
+    margin-top: 20px;
+  }
+  span.required{
+    color: red;
+  }
   .payment-form .submit {
     background-image: none;
     padding-top: 0;

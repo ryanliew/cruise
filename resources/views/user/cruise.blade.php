@@ -212,3 +212,7 @@
         <!-- End Main -->
 
 @endsection
+
+@section('pagejs')
+
+@endsection

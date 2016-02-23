@@ -17,7 +17,7 @@
         <!-- fullCalendar -->
         <link href="{{URL::to('/')}}/css/admin/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
         <!-- Daterange picker -->
-        <link href="{{URL::to('/')}}/css/admin/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        <link href="{{URL::to('/')}}/css/admin/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
         <!-- bootstrap wysihtml5 - text editor -->
         <link href="{{URL::to('/')}}/css/admin/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
@@ -49,7 +49,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="{{URL::to('/')}}/img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="{{URL::to('/')}}/uploads/{{ Auth::user()->image }}" class="img-circle" alt="User Image" />
                                     <p>
                                         <span class="text-capitalize">{{ Auth::user()->role() }}</span><br/>
                                         {{ Auth::user()->first_name }}
@@ -79,17 +79,17 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="{{URL::to('/')}}/img/avatar3.png" class="img-circle" alt="User Image" />
+                            <img src="{{ URL::to('/') }}/uploads/{{ Auth::user()->image }}" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, {{  Auth::user()->first_name }}</p>
+                            <p>Hello, {{ Auth::user()->first_name }}</p>
 
-                            <a><span class="text-capitalize"> {{  Auth::user()->role() }}</span></a>
+                            <a><span class="text-capitalize"> {{ Auth::user()->role() }}</span></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="active">
+                        <li>
                             <a href="{{  URL::to('/admin') }}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
@@ -133,7 +133,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-toggle-right"></i> View promotions</a></li>
+                                <li><a href="{{ URL::to('/admin/promotions') }}"><i class="fa fa-toggle-right"></i> View promotions</a></li>
                                 <li><a href="{{ URL::to('/admin/promotion/new') }}"><i class="fa fa-toggle-right"></i> Add new promotion</a></li>
                             </ul>
                         </li>
@@ -143,12 +143,17 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-toggle-right"></i> View reservations</a></li>
+                                <li><a href="{{ URL::to('/admin/reservations') }}"><i class="fa fa-toggle-right"></i> View reservations</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ URL::to('/admin/users') }}">
                                 <i class="fa fa-user"></i> <span> Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ URL::to('/user') }}/{{ Auth::user()->id }}">
+                                <i class="fa fa-user"></i> <span> My Profile</span>
                             </a>
                         </li>
                     </ul>
@@ -165,7 +170,7 @@
                         <small>Control panel</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="{{ URL::to('/admin') }}"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">@yield('titletext')</li>
                     </ol>
                 </section>
@@ -188,6 +193,7 @@
         <script src="{{URL::to('/')}}/js/admin/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
         <!-- daterangepicker -->
         <script src="{{URL::to('/')}}/js/admin/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <script src="{{URL::to('/')}}/js/admin/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
         <!-- Bootstrap WYSIHTML5 -->
         <script src="{{URL::to('/')}}/js/admin/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js" type="text/javascript"></script>
         <script src="{{URL::to('/')}}/js/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.js" type="text/javascript"></script>    
@@ -197,5 +203,12 @@
         <!-- AdminLTE App -->
         <script src="{{URL::to('/')}}/js/admin/AdminLTE/app.js" type="text/javascript"></script>
         @yield('pagescript')
-    </body>
+
+        <script>
+            $(function(){
+
+                var url = window.location.href;
+                $('a[href="'+url+'"]').parent().addClass('active');
+            });
+        </script>
 </html>

@@ -146,9 +146,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
-         * Cashier Provider
+         * DOM to PDF Provider
          */
-        Laravel\Cashier\CashierServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
     ],
 
@@ -198,6 +199,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'PDF'       => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -30,4 +30,26 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function (){
+            $cruises = Cruise::active();
+            foreach($cruises as $cruise)
+            {
+                if(DateTime::createFromFormat('Y-m-d', $cruise->depart_date) <= new DateTime())
+                {
+                    $cruise->status = 3;
+                    $cruise->save();
+                }
+            }
+            $promotions = App\Promotion::active();
+            foreach($promotions as $promotion)
+            {
+                if(DateTime::createFromFormat('Y-m-d', $promotion->end_date) >= new DateTime())
+                $promotion->status = 1;
+                $promotion->save();
+            }
+        })->daily()->sendOutputTo('/cron');
+    }
 }

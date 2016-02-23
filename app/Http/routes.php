@@ -1,5 +1,5 @@
 <?php
-
+use App\Cruise;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,15 +13,22 @@
 
 Route::get('/', 'Front\FrontController@homepage');
 Route::get('home', 'Front\FrontController@homepage');
+Route::get('about', 'Front\FrontController@about');
 Route::get('cruises', 'Front\FrontController@index');
 Route::post('cruises', 'Front\FrontController@search');
 Route::get('cruise/{cruise}', 'Front\FrontController@cruise');
 Route::post('reservation', 'ReservationController@make');
 Route::get('reservation/{reservation}', 'ReservationController@show');
+Route::get('reservation/download/{reservation}', 'ReservationController@download');
 Route::get('reservation/success/{reservation}', array(
 	'as' => 'payment.success',
 	'uses' => 'ReservationController@success',
 	));
+Route::get('reservation/failed/{reservation}', array(
+	'as' => 'payment.failed',
+	'uses' => 'ReservationController@failed',
+	));
+Route::post('savepassenger', 'PassengerController@store');
 Route::post('makepayment', array(
 	'as' => 'payment',
 	'uses' => 'PaypalController@postPayment',
@@ -38,8 +45,8 @@ Route::get('/dummy', function(){
 		$cruise = array(
 			'name' => $faker->name, 
 			'description' => $faker->text($maxNbChars = 200), 
-			'depart_date' => $faker->randomElement($array = ['2015-11-14', '2015-11-15', '2015-11-16', '2015-11-17', '2015-11-18']),
-			'arrive_date' => $faker->randomElement($array = ['2015-11-19', '2015-11-20', '2015-11-21', '2015-11-22', '2015-11-23']),
+			'depart_date' => $faker->randomElement($array = ['2016-1-8', '2016-1-9', '2016-1-10', '2016-1-11', '2016-1-12']),
+			'arrive_date' => $faker->randomElement($array = ['2016-1-19', '2016-1-20', '2016-1-21', '2016-1-22', '2016-1-23']),
 			'depart_location' => $faker->randomElement($array = ['Singapore', 'Malaysia', 'Maldives', 'Thailand', 'Sri Lanka']),
 			'arrive_location' => $faker->randomElement($array = ['Amsterdam', 'Hong Kong', 'China', 'Australia', 'Japan']),
 			'price' => $faker->randomFloat($bMaxDecimals = 2, $min = 100, $max = 2000),
@@ -106,10 +113,11 @@ Route::group(['prefix' => 'admin'], function()
 	Route::delete('cabin/{cabin}', 'CabinController@deleteCabin');
 
 	//Admin Reservation Route
-	Route::get('reservations', 'ReservationController@getCruiseList');
-	Route::get('reservation/{reservation}', 'ReservationController@getUpdateReservationForm');
-	Route::put('reservation/{reservation}', 'ReservationController@updateReservation');
-	Route::delete('reservation/{reservation}', 'ReservationController@deleteReservation');
+	Route::get('reservations', 'ReservationController@index');
+	Route::get('reservation/{reservation}', 'ReservationController@edit');
+
+	//Admin User Route
+	Route::get('users', 'UserController@index');
 });
 
 

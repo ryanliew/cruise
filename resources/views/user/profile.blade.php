@@ -63,7 +63,10 @@
 	                                            <div class="field-input">
 	                                                <input type="text" class="input-text" name="phone" value="{{ $user->contact_no }}" placeholder="Phone Number">
 	                                            </div>
-	                                            <h3>Location</h3>
+                                                <div class="field-input">
+                                                    <input type="text" name="date_of_birth" class="input-text" value="{{ $user->dob() }}" placeholder="Date of Birth">
+                                                </div>
+	                                            <h3>Address</h3>
 	                                            <div class="field-input">
 	                                                <input type="text" class="input-text" name="country" value="{{ $user->country }}" placeholder="Country">
 	                                            </div>
@@ -113,4 +116,27 @@
             </div>
         </div>
         <!-- End Main -->
+@endsection
+
+@section('pagejs')
+<!-- fullCalendar -->
+        <script src="{{URL::to('/')}}/js/admin/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+        <!-- daterangepicker -->
+        <script src="{{URL::to('/')}}/js/admin/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <script>
+            $(function() {
+                $('input[name="date_of_birth"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true
+                });
+            });
+        </script>
+@endsection
+
+@section('pagecss')
+        <!-- fullCalendar -->
+        <link href="{{URL::to('/')}}/css/admin/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
+        <!-- Daterange picker -->
+        <link href="{{URL::to('/')}}/css/admin/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+        <script src="{{URL::to('/')}}/js/admin/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
 @endsection

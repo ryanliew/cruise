@@ -16,7 +16,6 @@ return array(
     'Payum\\Core\\' => array($vendorDir . '/payum/core'),
     'PayPal' => array($vendorDir . '/paypal/rest-api-sdk-php/lib'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
-    'Laravel\\Cashier\\' => array($vendorDir . '/laravel/cashier/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'Dotenv' => array($vendorDir . '/vlucas/phpdotenv/src'),

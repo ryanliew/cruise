@@ -8,6 +8,7 @@ use URL;
 use Session;
 use Redirect;
 use Input;
+use App\Passenger;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Amount;
@@ -35,6 +36,18 @@ class PaypalController extends Controller
 
     public function postPayment(Request $request)
     {
+        foreach($request->get('passengername') as $key => $name) {
+            $passenger = Passenger::create([
+                'reservation_id' => $request->reservation_id,
+                'cruise_id' => $request->cruise_id,
+                'name' => $name,
+                'identification' => $request->get('passengeridentification')[$key],
+                'nationality' => $request->get('passengernationality')[$key],
+                'contact_no' => $request->get('passengercontact')[$key],
+                'gender' => $request->get('passengergender')[$key],
+                ]);
+        }
+
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
@@ -106,7 +119,7 @@ class PaypalController extends Controller
         Session::forget('reservation_id');
 
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-            return Redirect::route('reservation/{{ $reservation_id }}')
+            return Redirect::route('reservation/' . $reservation_id)
                 ->with('error', 'Payment failed');
         }
 
@@ -126,7 +139,7 @@ class PaypalController extends Controller
             return redirect('/reservation/success/' . $reservation_id)
                 ->with('status', 'Payment success');
         }
-        return redirect('/reservation/' . $reservation_id)
+        return redirect('/reservation/failed/' . $reservation_id)
             ->with('error', 'Payment failed. Please try again later.');
     }
 }

@@ -227,6 +227,9 @@ img {
 .bg-maroon {
   background-color: #85144b !important;
 }
+.bg-success {
+  background-color: lightgreen !important;
+}
 /* Text colors */
 .text-red {
   color: #f56954 !important;

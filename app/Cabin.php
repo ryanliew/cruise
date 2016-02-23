@@ -11,17 +11,17 @@ class Cabin extends Model
 
     public function cruises()
     {
-    	return $this->belongsToMany('App/Cruise', 'cruises_cabins')->withTimestamp()->withPivot('cabin_booked', 'cabin_number');
+    	return $this->belongsToMany('App\Cruise', 'cruises_cabins')->withTimestamp()->withPivot('cabin_booked', 'cabin_number');
     }
 
     public function reservation()
     {
-    	return $this->hasMany('App/Reservation');
+    	return $this->hasMany('App\Reservation');
     }
 
     public function promotions()
     {
-    	return $this->belongsTo('App/Promotion');
+    	return $this->belongsTo('App\Promotion');
     }
 
     public function pricepernight($night)

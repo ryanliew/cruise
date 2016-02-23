@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use DateTime;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -39,7 +40,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function reservations()
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany('App\Reservation');
     }
 
     public function role()
@@ -62,5 +63,25 @@ class User extends Model implements AuthenticatableContract,
         if ($this->role == 1)
             return true;
         return false;
+    }
+
+    public function name()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function spending()
+    {
+        $spending = 0;
+        foreach($this->reservations()->get() as $reservation)
+        {
+            $spending += $reservation->price;
+        }
+        return $spending;
+    }
+
+    public function dob()
+    {
+        return DateTime::createFromFormat('Y-m-d', $this->date_of_birth)->format('m/d/Y');
     }
 }

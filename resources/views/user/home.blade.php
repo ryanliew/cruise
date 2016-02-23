@@ -136,7 +136,7 @@
                                     @if($cruise->hasDiscount())
                                         <span class="price old-price">Only <del>RM{{ $cruise->price, 2 }}</del></span>
                                     @endif
-            						<span class="price special-price">RM{{ $cruise->price() }}
+            						<span class="price special-price">RM{{ number_format($cruise->price(),2 ,'.', ',') }}
             					</div>
                             </div>
                         </div>

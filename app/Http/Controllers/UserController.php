@@ -8,6 +8,7 @@ use Hash;
 use Auth;
 use Input;
 use File;
+use DateTime;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +26,10 @@ class UserController extends Controller
 
     public function index()
     {
-        //
+        $users = User::all();
+        return view('admin.users', [
+            'users' => $users,
+            ]);
     }
 
     public function showReservations(Request $request, User $user)
@@ -115,6 +119,8 @@ class UserController extends Controller
 	    	$user->address_1 = $request->address_1;
 	    	$user->city = $request->city;
 	    	$user->postal_code = $request->postal_code;
+            $dob = DateTime::createFromFormat('m/d/Y', $request->date_of_birth)->format('Y-m-d');
+            $user->date_of_birth = $dob;
 	    	if(!empty($request->new_password) && !empty($request->current_password))
 	    		$user->password = Hash::make($request->new_password);
 	    	if(!empty($request->address_2))

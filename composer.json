@@ -9,8 +9,8 @@
         "laravel/framework": "5.1.*",
         "payum/payum-laravel-package": "^1.0",
         "payum/paypal-express-checkout-nvp": "^1.0",
-        "laravel/cashier": "~5.0",
-        "paypal/rest-api-sdk-php": "*"
+        "paypal/rest-api-sdk-php": "*",
+        "barryvdh/laravel-dompdf": "0.6.*"
 
     },
     "require-dev": {
